@@ -1,0 +1,116 @@
+/* OntoRAG Hub — graphite + electric-lime, GitHub-style app surface.
+   Full-bleed layout, clean bordered panels, icons. Light + dark via light-dark().
+   Monospace reserved for genuinely technical text (repos, slugs, IRIs, code). */
+
+:root {
+  color-scheme: light dark;
+
+  --paper:        light-dark(oklch(0.986 0.003 250), oklch(0.180 0.013 258));
+  --surface:      light-dark(oklch(1 0 0),           oklch(0.212 0.014 258));
+  --surface-2:    light-dark(oklch(0.968 0.005 250), oklch(0.246 0.015 258));
+  --ink:          light-dark(oklch(0.235 0.019 258), oklch(0.940 0.009 250));
+  --muted:        light-dark(oklch(0.500 0.019 258), oklch(0.660 0.015 250));
+  --faint:        light-dark(oklch(0.630 0.015 258), oklch(0.510 0.014 250));
+  --line:         light-dark(oklch(0.895 0.009 250), oklch(0.310 0.014 258));
+  --line-strong:  light-dark(oklch(0.800 0.013 250), oklch(0.410 0.016 258));
+  --grid:         light-dark(oklch(0.945 0.006 250), oklch(0.235 0.012 258));
+
+  --accent:       light-dark(oklch(0.780 0.170 138), oklch(0.855 0.200 135));
+  --accent-ink:   light-dark(oklch(0.470 0.120 140), oklch(0.850 0.190 135));
+  --on-accent:    light-dark(oklch(0.235 0.045 145), oklch(0.180 0.030 258));
+  --accent-tint:  light-dark(oklch(0.780 0.170 138 / 0.14), oklch(0.855 0.200 135 / 0.16));
+
+  --font-display: "Archivo Expanded", "Archivo", system-ui, sans-serif;
+  --font-body:    "Hanken Grotesk", system-ui, sans-serif;
+  --font-mono:    "Martian Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-6: 24px;
+  --sp-8: 32px; --sp-12: 48px; --sp-16: 64px;
+  --r: 6px; --r-sm: 4px;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 15px; line-height: 1.55;
+  color: var(--ink);
+  background: var(--paper);
+}
+::selection { background: var(--accent-tint); }
+
+h1, h2 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.015em; line-height: 1.05; margin: 0; }
+h1 { font-size: clamp(2rem, 1.4rem + 2.4vw, 3.2rem); font-weight: 800; }
+h2 { font-size: 1.4rem; }
+h3 { font-family: var(--font-body); font-weight: 600; font-size: 1rem; margin: 0; }
+h4 { font-family: var(--font-body); font-size: 0.82rem; font-weight: 600; color: var(--muted); margin: var(--sp-4) 0 var(--sp-2); }
+
+a { color: var(--accent-ink); text-decoration: none; text-underline-offset: 3px; }
+a:hover { text-decoration: underline; }
+
+.muted { color: var(--muted); font-size: 0.9rem; }
+.err { color: light-dark(oklch(0.52 0.19 27), oklch(0.74 0.16 27)); font-size: 0.86rem; }
+.mono { font-family: var(--font-mono); }
+.coord { font-family: var(--font-mono); font-size: 0.7rem; color: var(--faint); }
+
+/* ── panel (GitHub-style bordered box, no shadow, no ticks) ───────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: var(--sp-6);
+  margin-bottom: var(--sp-4);
+}
+.sheet-hd { display: flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-3); border-bottom: 1px solid var(--line); }
+.sheet-hd .no { display: none; }
+.sheet-hd .sp { flex: 1; }
+.sheet-hd > span:not(.sp):not(.coord):not(.no) { font-weight: 600; }
+
+/* ── controls (GitHub-ish: body font, subtle) ─────────────────────── */
+button, .btn {
+  font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
+  color: var(--ink); background: var(--surface-2);
+  border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+  padding: 0.42rem 0.8rem; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  transition: background .12s ease, border-color .12s ease, filter .12s ease;
+}
+button:hover:not(:disabled), .btn:hover { background: var(--surface); border-color: var(--muted); }
+button:disabled { opacity: 0.45; cursor: default; }
+button.primary, .btn, .btn.accent {
+  background: var(--accent); color: var(--on-accent); border-color: color-mix(in oklch, var(--accent), black 12%);
+}
+button.primary:hover:not(:disabled), .btn:hover, .btn.accent:hover { filter: brightness(1.05); background: var(--accent); }
+button.ghost { background: transparent; }
+button.ghost:hover:not(:disabled) { background: var(--surface-2); }
+button svg, .btn svg { flex: none; }
+
+/* ── fields ───────────────────────────────────────────────────────── */
+label { display: block; font-size: 0.8rem; font-weight: 500; color: var(--muted); margin: var(--sp-3) 0 var(--sp-1); }
+input, textarea, select {
+  font-family: var(--font-body); font-size: 0.92rem; color: var(--ink);
+  width: 100%; padding: 0.5rem 0.65rem;
+  background: var(--paper); border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+}
+input.mono, input[placeholder*="http"], input[placeholder*="sk-"], input[placeholder*="slug"], input[type="password"] {
+  font-family: var(--font-mono); font-size: 0.84rem;
+}
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent-ink); box-shadow: 0 0 0 3px var(--accent-tint); }
+::placeholder { color: var(--faint); }
+
+/* ── chips (mono, hairline) ───────────────────────────────────────── */
+.chip {
+  font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink);
+  border: 1px solid var(--line); border-radius: 999px; padding: 0.12rem 0.55rem;
+  display: inline-flex; align-items: center; gap: 0.25rem; background: var(--surface-2);
+}
+
+@keyframes fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.fade-in { animation: fade-in .35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
