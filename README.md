@@ -3,7 +3,7 @@
 The web front end of the OntoRAG Hub: browse, explore and chat with
 [OntoRAG](https://ontorag.org) datasets. It is a static site.
 
-**Live:** https://ontorag.org/hub-web/
+**Live:** https://hub.ontorag.org/
 
 ## Two modes
 
@@ -45,13 +45,13 @@ The deployed site reads `config.json` next to `index.html`:
 `null` (the default) means public mode. The file is fetched at runtime, so the
 backend can move without a rebuild. `VITE_HUB_API` sets a build-time fallback. The
 backend must allow this origin in `HUB_CORS_ORIGINS`, and it must send GitHub
-sign-in back here (`HUB_FRONTEND_URL=https://ontorag.org/hub-web/`).
+sign-in back here (`HUB_FRONTEND_URL=https://hub.ontorag.org`).
 
 ## Develop
 
 ```sh
 npm ci
-npm run dev        # http://localhost:5173/hub-web/
+npm run dev        # http://localhost:5173/
 npm test           # vitest: SPARQL guard, prompts, mentions query and chat loop against Oxigraph
 npm run build      # → dist/
 ```

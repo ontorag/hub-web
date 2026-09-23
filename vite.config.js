@@ -1,9 +1,9 @@
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 
-// Served from https://ontorag.org/hub-web/ (GitHub Pages under the org domain).
+// Served from https://hub.ontorag.org/ (GitHub Pages, custom domain).
 export default defineConfig({
-  base: "/hub-web/",
+  base: "/",
   plugins: [svelte()],
   // Oxigraph loads its WASM with `new URL(..., import.meta.url)`; pre-bundling would break that
   optimizeDeps: { exclude: ["oxigraph"] },
